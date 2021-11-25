@@ -1,88 +1,50 @@
-# Scrapy settings for jd_spider project
-#
-# For simplicity, this file contains only settings considered important or
-# commonly used. You can find more settings consulting the documentation:
-#
-#     https://docs.scrapy.org/en/latest/topics/settings.html
-#     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
 BOT_NAME = 'jd_spider'
 
 SPIDER_MODULES = ['jd_spider.spiders']
 NEWSPIDER_MODULE = 'jd_spider.spiders'
 
+# 日志级别
+LOG_LEVEL = 'ERROR'
 
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'jd_spider (+http://www.yourdomain.com)'
+# Redis地址
+REDIS_URL = 'redis://:Root.123456@47.99.44.141:6379'
 
-# Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+# 使用scrapy_redis的调度器
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 
-# Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+# 使用scrapy_redis的去重机制
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
-# Configure a delay for requests for the same website (default: 0)
-# See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
-# See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
-# The download delay setting will honor only one of:
-#CONCURRENT_REQUESTS_PER_DOMAIN = 16
-#CONCURRENT_REQUESTS_PER_IP = 16
+# 在ITEM_PIPELINES中添加redis管道
+ITEM_PIPELINES = {
+    # 'scrapy_redis.pipelines.RedisPipeline': 200
+    'jd_spider.pipelines.MysqlPipeline': 300,
+}
 
-# Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+# 下载器中间件
+DOWNLOADER_MIDDLEWARES = {
+    'jd_spider.middlewares.UserAgentMiddleware': 543,
+    'jd_spider.middlewares.CookiesMiddleware': 543,
+    # 'jd_spider.middlewares.ProxyMiddleware': 543,
+}
 
-# Disable Telnet Console (enabled by default)
-#TELNETCONSOLE_ENABLED = False
+# 下载延迟
+DOWNLOAD_DELAY = 1
 
-# Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+# IP代理列表
+PROXY_LIST = [
+    '61.164.39.68:53281',
+    '115.218.7.133:9000',
+]
 
-# Enable or disable spider middlewares
-# See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'jd_spider.middlewares.JdSpiderSpiderMiddleware': 543,
-#}
+# 用户代理列表
+USER_AGENT_LIST = [
+    'Openwave/ UCWEB7.0.2.37/28/999',
+    'Mozilla/4.0 (compatible; MSIE 6.0; ) Opera/UCWEB7.0.2.37/28/999',
+]
 
-# Enable or disable downloader middlewares
-# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'jd_spider.middlewares.JdSpiderDownloaderMiddleware': 543,
-#}
+# 爬取深度
+DEPTH_LIMIT = 100
 
-# Enable or disable extensions
-# See https://docs.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-#}
-
-# Configure item pipelines
-# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'jd_spider.pipelines.JdSpiderPipeline': 300,
-#}
-
-# Enable and configure the AutoThrottle extension (disabled by default)
-# See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
-# The initial download delay
-#AUTOTHROTTLE_START_DELAY = 5
-# The maximum download delay to be set in case of high latencies
-#AUTOTHROTTLE_MAX_DELAY = 60
-# The average number of requests Scrapy should be sending in parallel to
-# each remote server
-#AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
-# Enable showing throttling stats for every response received:
-#AUTOTHROTTLE_DEBUG = False
-
-# Enable and configure HTTP caching (disabled by default)
-# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-#HTTPCACHE_ENABLED = True
-#HTTPCACHE_EXPIRATION_SECS = 0
-#HTTPCACHE_DIR = 'httpcache'
-#HTTPCACHE_IGNORE_HTTP_CODES = []
-#HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+# 登录cookies
+COOKIES = '__jdv=76161171|direct|-|none|-|1637544478792; __jdu=1637544478791226467958; areaId=15; ipLoc-djd=15-1213-3408-0; PCSYCityID=CN_330000_330100_330102; shshshfpa=ddfa831d-c50c-7f0a-ef4e-a5f4adbf0c58-1637544481; shshshfpb=sMUU1SXmGN6C8BAfBii2oHA==; user-key=1d7d7f1b-c5c6-4bff-bf9f-37a2404340af; rkv=1.0; qrsc=3; TrackID=1tkQmYQJgNrDNTZWJdzihjkVFba816ylAisgEo3976HSxLJZggk-JEJ4joKPfbpH1lTgbsKmP7Sb9CPYRVHhFi_9iJhBZEpc2wc9e8ojw64s; pinId=yvjJW3zWHQ5lkdBSrJoHWLV9-x-f3wj7; pin=jd_7a03396b3200d; unick=jd_166732wdn; ceshi3.com=000; _tp=PpKqkUYY+bRRHsiPHJErUkoTT6uQ5ZrAHAKvEsJkd4A=; _pst=jd_7a03396b3200d; shshshfp=ec79367bbdaaf0e780cee333c3e9a1af; __jda=122270672.1637544478791226467958.1637544479.1637636836.1637644596.4; __jdc=122270672; shshshsID=28a74ea4dd49336020dcb5b1a7303633_7_1637647344152; __jdb=122270672.11.1637544478791226467958|4.1637644596; thor=78A0E8C7802AB08A7223341E687579666E02F09C64A627DC98BFCB586E21513621D160B7A2FE186A12120F598CE0579E8EBA273D9A915ED393D15E5B48E10CF30371DD37F6F75F3318352D9B58485870D84FB0C9A95160381F207CADB03BC5245EBFA81F5B19A367CC80927E73D058112D46BB443DCD5C0B68CE4A28F60B73C3CBFF6FD3D3781D36FD9405D24AB6300FE61DDB3CB22D2F06B2B6DE3E306EF555; 3AB9D23F7A4B3C9B=REOVK6FN33GL3CXEBAYVPB3A2ITBYWLU2QBCGN7WDG5PU2ZU7HZ4EXTIZALJN6B3Z35ZFWVPR2QN4ICOV5235YKMN4'
