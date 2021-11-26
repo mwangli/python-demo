@@ -2,7 +2,9 @@ import pymysql
 import json
 import logging
 
+
 class MysqlPipeline(object):
+
     def open_spider(self, spider):
         # connection database
         self.connect = pymysql.connect(host='120.78.150.105', user='root', passwd='Root.123456', db='test')
@@ -21,7 +23,8 @@ class MysqlPipeline(object):
             # 执行插入数据到数据库操作
             rows = self.cursor.execute(select_sql, (item['code']))
             if rows == 0:
-                self.cursor.execute(insert_sql, (item['code'],  item['shop'], item['name'], item['price'], item['image'], item['comments']))
+                self.cursor.execute(insert_sql, (
+                item['code'], item['shop'], item['name'], item['price'], item['image'], item['comments']))
                 # 提交，不进行提交无法保存到数据库
                 self.connect.commit()
                 data = json.dumps(dict(item), ensure_ascii=False)

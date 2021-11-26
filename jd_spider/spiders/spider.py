@@ -19,7 +19,7 @@ class JobSpider(RedisSpider):
         self.logger.info(f'本页面共条{len(node_list)}数据')
         # 获取下一页
         next_url = temp[0] + temp[1] + str(int(temp[2]) + 1)
-        yield scrapy.Request(next_url, callback=self.parse)
+        yield scrapy.Request(url=next_url, callback=self.parse)
         # 遍历节点
         for node in node_list:
             # 获取商品sku
@@ -28,6 +28,13 @@ class JobSpider(RedisSpider):
             item['name'] = node.xpath('.//div[@class="p-img"]//a/@title').extract_first()
             item['price'] = node.xpath('.//div[@class="p-price"]//i/text()').extract_first()
             item['shop'] = node.xpath('.//div[@class="p-shop"]//a/text()').extract_first()
+            temp = node.xpath('.//div[@class="p-img"]//img')
+            print(temp)
             item['image'] = node.xpath('.//div[@class="p-img"]//img/@src').extract_first()
             item['comments'] = node.xpath('.//*[@id="J_comment_' + item['code'] + '"]').extract_first()
             yield item
+
+    # 列表页面解析
+    def parse_detail(self, response):
+        print('parse_detail')
+        pass

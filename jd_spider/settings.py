@@ -83,7 +83,7 @@ USER_AGENT_LIST = [
 ]
 
 # 爬取深度
-DEPTH_LIMIT = 100
+# DEPTH_LIMIT = 100
 
 # 登录cookies
 COOKIES = 'shshshfpa=acfc8b11-3b55-e596-6dc1-e6daa521405b-1637896310;' \
