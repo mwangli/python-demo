@@ -17,12 +17,11 @@ class MysqlPipeline(object):
         if item['name'] and item['code']:
             # sql语句
             select_sql = """select * from item where code = %s"""
-            insert_sql = """insert into item(code, category, shop, name, price, image, comments) VALUES (%s,%s,%s,%s,%s,%s,%s)"""
+            insert_sql = """insert into item(code, shop, name, price, image, comments) VALUES (%s,%s,%s,%s,%s,%s)"""
             # 执行插入数据到数据库操作
             rows = self.cursor.execute(select_sql, (item['code']))
             if rows == 0:
-                self.cursor.execute(insert_sql, (
-                    item['code'], item['category'], item['shop'], item['name'], item['price'], item['image'], item['comments']))
+                self.cursor.execute(insert_sql, (item['code'],  item['shop'], item['name'], item['price'], item['image'], item['comments']))
                 # 提交，不进行提交无法保存到数据库
                 self.connect.commit()
                 data = json.dumps(dict(item), ensure_ascii=False)
