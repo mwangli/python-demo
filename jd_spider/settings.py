@@ -39,14 +39,33 @@ PROXY_POOL = [
 
 # 用户代理列表
 USER_AGENT_POOL = [
+    'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',
+    'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',
+    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;',
+    'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)',
+    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)',
+    'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1',
+    'Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1',
+    'Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11',
+    'Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11',
+    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Maxthon 2.0)',
+    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; TencentTraveler 4.0)',
+    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
+    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; The World)',
+    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; SE 2.X MetaSr 1.0; SE 2.X MetaSr 1.0; .NET CLR 2.0.50727; SE 2.X MetaSr 1.0)',
+    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; 360SE)',
+    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Avant Browser)',
+    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
     'Openwave/ UCWEB7.0.2.37/28/999',
     'Mozilla/4.0 (compatible; MSIE 6.0; ) Opera/UCWEB7.0.2.37/28/999',
 ]
 
 # 爬取深度
-DEPTH_LIMIT = 1000
+DEPTH_LIMIT = 100
 
 # 登录cookies
 COOKIES_POOL = [
-    'pinId=yvjJW3zWHQ5lkdBSrJoHWLV9-x-f3wj7; __jdu=16284814869031387560296; shshshfpb=kLazNN8PfO2LxZGgLmSW8uQ==; shshshfpa=446db814-3d27-4c2a-5ded-ea738b6cfe8d-1611329249; unpl=V2_ZzNtbUIDRRwlCUNcexhdV2IKEwkSBUEVcgxAVntKDgxhVEBfclRCFnUURlVnG10UZwEZXkJcRxFFCEdkeR1ZAmYBEV1yZ3MWdThGVUsZWwZuBhtdR15EHXQKRlZyH1gCZgAaWnJnQx1yOHYfLkUyQyZBIl1CUEcQdwBEXXopXTVnAxNeRVJAF3MLdh8VGBEFYAAbWEtXRhxyAEdWextVA2MEE15KUHMURQs=; __jdv=76161171|direct|-|none|-|1637587688382; areaId=15; ipLoc-djd=15-1213-3411-0; PCSYCityID=CN_330000_330100_330106; pin=jd_7a03396b3200d; unick=jd_166732wdn; _tp=PpKqkUYY+bRRHsiPHJErUkoTT6uQ5ZrAHAKvEsJkd4A=; _pst=jd_7a03396b3200d; TrackID=1X6wBTu0ZK9c-RUVgEiANCvoZnsKO4vXpFGcws9V_beUcfR5HLzlUL6vvQumDyd7p5Z9MDU1nfFeVw4kOHSp-1_mbvRMyQkXs8D8b3gY6beg; user-key=24c43d9c-5c46-460e-89f6-de65a39c10c4; __jda=122270672.16284814869031387560296.1628481486.1637860509.1637922956.13; __jdc=122270672; shshshfp=086b68431df08a6966c3005bd944a8bc; token=0c1173d3089ccafceeac740ff20709ee,2,909957; __tk=usazuDv3Ysu1YDu5Xsk0vpdnuziRu3bRushFXUiSZsbRYzq0X3l3Xk,2,909957; shshshsID=a175170f992bc21308d70fb68b0279a6_7_1637923367766; __jdb=122270672.7.16284814869031387560296|13.1637922956; ip_cityCode=1213; 3AB9D23F7A4B3C9B=RCUOFJZQFP4XIMWZWP54XWUQ7OQDNUQNM635GFP5XBXNRGJX467I4QWAV4VP665FSWDJ2VYHQVPUEUFTJEHOE6FKS4'
+    'lang=zh-cn; UM_distinctid=17c2779000030e-056d0807a0896a-a7d173c-1fa400-17c27790001308; _yuque_session=SXe0oOFoJBOgxrYRPPJWVBJQYTusoK7Jx7dNwx7PnQBG4AwZpyyRpIHTca9SoiQHAqHpp_NPecy6Y1p34dHGrQ==; acw_tc=0bda732516379350883486388ef22ad8b18cc05dd3f55c81effadd482a607e; yuque_ctoken=-r0Df07xZD8SblCA61WN5mTm; CNZZDATA1272061571=1566519907-1599615260-%7C1637924944; _TRACERT_COOKIE__SESSION=4d3c930b-7fbc-4dbd-a622-b2600113b953; tree=a385%01c68828e1-5880-4d8b-95cd-c427d5b19df6%011'
 ]
