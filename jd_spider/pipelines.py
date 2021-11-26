@@ -8,8 +8,6 @@ class MysqlPipeline(object):
         self.connect = pymysql.connect(host='120.78.150.105', user='root', passwd='Root.123456', db='test')
         # get cursor
         self.cursor = self.connect.cursor()
-        # 根据商品code去重
-        # self.code_set = set()
         # 数据统计
         self.count = 0
         # 日志打印
@@ -27,15 +25,12 @@ class MysqlPipeline(object):
                     item['code'], item['category'], item['shop'], item['name'], item['price'], item['image'], item['comments']))
                 # 提交，不进行提交无法保存到数据库
                 self.connect.commit()
-                # 保存code
-                # self.code_set.add(item['code'])
                 data = json.dumps(dict(item), ensure_ascii=False)
                 self.logger.info(f'本次获取数据:{data}')
                 self.logger.info(f'共获取数据{self.count}条')
                 self.count = self.count + 1
             else:
                 self.logger.info(f'{item["code"]}:数据已存在！')
-                print()
         return item
 
     def close_spider(self, spider):

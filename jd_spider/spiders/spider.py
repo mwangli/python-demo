@@ -7,9 +7,7 @@ from jd_spider.items import JDItem
 
 class JobSpider(RedisSpider):
     name = 'spider'
-
     redis_key = 'spider:start_url'
-
     logger = logging.getLogger(None)
 
     # 列表页面解析
@@ -29,16 +27,9 @@ class JobSpider(RedisSpider):
             item['code'] = node.xpath('./@data-sku').extract_first()
             item['name'] = node.xpath('.//div[@class="p-img"]//a/@title').extract_first()
             item['price'] = node.xpath('.//div[@class="p-price"]//i/text()').extract_first()
-            # 详情页面处理
-            detail_url = 'https://item.jd.com/' + item['code'] + '.html'
-            yield scrapy.Request(detail_url, callback=self.parse_detail, meta={'item': item})
+            item['shop'] = node.xpath('.//div[@class="p-shop"]//a/text()').extract_first()
+            item['image'] = node.xpath('.//div[@class="p-img"]//a/@href').extract_first()
+            item['comments'] = node.xpath('.//div[@class="p-shop"]//a/text()').extract_first()
+            yield item
 
-    # 详情页面解析
-    def parse_detail(self, response):
-        # 获取item
-        item = response.meta['item']
-        item['category'] = response.xpath("//div[@id='crumb-wrap']//div[@class='item first']/a/text()")
-        item['shop'] = response.xpath("//div[@class='crumb-wrap']//div[@class='name']/a/text()").extract_first()
-        item['image'] = response.xpath('//*[@id="spec-img"]/@data-origin').extract_first()
-        item['comments'] = response.xpath('//div[@id="comment-count"]/a/text()').extract_first()
-        yield item
+
