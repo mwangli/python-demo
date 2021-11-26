@@ -24,7 +24,7 @@ ITEM_PIPELINES = {
 # 下载器中间件
 DOWNLOADER_MIDDLEWARES = {
     'jd_spider.middlewares.UserAgentMiddleware': 543,
-    'jd_spider.middlewares.CookiesMiddleware': 543,
+    # 'jd_spider.middlewares.CookiesMiddleware': 543,
     # 'jd_spider.middlewares.ProxyMiddleware': 543,
 }
 
