@@ -1,18 +1,27 @@
 import scrapy
+import logging
+from scrapy_redis.spiders import RedisSpider
+
 from jd_spider.items import JDItem
 
 
-class JobSpider(scrapy.Spider):
+class JobSpider(RedisSpider):
     name = 'spider'
-    allowed_domains = ['jd.com']
-    start_urls = [
-        'https://search.jd.com/Search?keyword=%E6%89%8B%E6%9C%BA&wq=%E6%89%8B%E6%9C%BA&pvid=cbb8de4071f84668b92a8258d4b4ec04&page=1'
-    ]
+
+    redis_key = 'spider:start_url'
+
+    logger = logging.getLogger(None)
 
     # 列表页面解析
     def parse(self, response):
         # 获取商品节点列表
         node_list = response.xpath("//div[@id='J_goodsList']//li[@class='gl-item']")
+        temp = response.request.url.rpartition('=')
+        self.logger.info(f'已获取第页{temp[2]}数据')
+        self.logger.info(f'本页面共条{len(node_list)}数据')
+        # 获取下一页
+        next_url = temp[0] + temp[1] + str(int(temp[2]) + 1)
+        yield scrapy.Request(next_url)
         # 遍历节点
         for node in node_list:
             # 获取商品sku
@@ -23,18 +32,13 @@ class JobSpider(scrapy.Spider):
             # 详情页面处理
             detail_url = 'https://item.jd.com/' + item['code'] + '.html'
             yield scrapy.Request(detail_url, callback=self.parse_detail, meta={'item': item})
-            # 获取下一页
-            temp = response.request.url.rpartition('=')
-            next_url = temp[0] + temp[1] + str(int(temp[2]) + 1)
-            yield scrapy.Request(next_url)
 
     # 详情页面解析
     def parse_detail(self, response):
         # 获取item
         item = response.meta['item']
-        item['category'] = response.xpath("//div[@id='crumb-wrap']//div[@class='item first']/a/text()").extract_first()
+        item['category'] = response.xpath("//div[@id='crumb-wrap']//div[@class='item first']/a/text()")
         item['shop'] = response.xpath("//div[@class='crumb-wrap']//div[@class='name']/a/text()").extract_first()
         item['image'] = response.xpath('//*[@id="spec-img"]/@data-origin').extract_first()
         item['comments'] = response.xpath('//div[@id="comment-count"]/a/text()').extract_first()
-        # print(item)
         yield item
