@@ -20,7 +20,7 @@ class MysqlPipeline(object):
             rows = self.cursor.execute(select_sql, (item['code']))
             if rows == 0:
                 self.cursor.execute(insert_sql, (
-                    item['code'], item['category'], item['shop'], item['name'], item['price'], item['price'], item['comments']))
+                    item['code'], item['category'], item['shop'], item['name'], item['price'], item['image'], item['comments']))
                 # 提交，不进行提交无法保存到数据库
                 self.connect.commit()
                 data = json.dumps(dict(item), ensure_ascii=False)
