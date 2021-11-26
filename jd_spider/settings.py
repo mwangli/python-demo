@@ -44,7 +44,7 @@ USER_AGENT_POOL = [
 ]
 
 # 爬取深度
-# DEPTH_LIMIT = 100
+DEPTH_LIMIT = 1000
 
 # 登录cookies
 COOKIES_POOL = [
