@@ -26,7 +26,7 @@ class JobSpider(RedisSpider):
             yield scrapy.Request(detail_url, callback=self.parse_detail, meta={'item': item})
         # 获取下一页
         temp = response.request.url.rpartition('=')
-        next_url = temp[0] + temp[1] + str(int(temp[2]) + 1)
+        next_url = temp[0] + temp[1] + str(int(temp[2]) + 2)
         print("下一页URL:", next_url)
         yield scrapy.Request(next_url)
 
