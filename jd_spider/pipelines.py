@@ -5,7 +5,7 @@ import json
 class MysqlPipeline(object):
     def open_spider(self, spider):
         # connection database
-        self.connect = pymysql.connect(host='120.78.150.105', user='root', passwd='Root.123456', db='test')
+        self.connect = pymysql.connect(host='test', user='root', passwd='Root.123456', db='bigdata')
         # get cursor
         self.cursor = self.connect.cursor()
         # 数据统计
@@ -15,7 +15,7 @@ class MysqlPipeline(object):
         if item['name'] and item['code']:
             # sql语句
             select_sql = """select * from item where code = %s"""
-            insert_sql = """insert into item(code, category, shop, name, price, image, comments) VALUES (%s,%s,%s,%s,%s,%s,%s)"""
+            insert_sql = """insert into goods_item(code, category, shop, name, price, image, comments) VALUES (%s,%s,%s,%s,%s,%s,%s)"""
             # 执行插入数据到数据库操作
             rows = self.cursor.execute(select_sql, (item['code']))
             if rows == 0:

@@ -1,19 +1,24 @@
 import scrapy
+from scrapy import Spider
 
 from scrapy_redis.spiders import RedisSpider
 
 from jd_spider.items import JDItem
 
 
-class JobSpider(RedisSpider):
+# class JobSpider(RedisSpider):
+class JobSpider(Spider):
     name = 'spider'
-    redis_key = 'spider:start_url'
+
+    # redis_key = 'spider:start_url'
+    start_urls = ['https://search.jd.com/Search?keyword=hf&enc=utf-8&wq=hf&pvid=86e17c0d019a46959f75162ab22e8241']
 
     # 列表页面解析
     def parse(self, response):
 
         # 获取商品节点列表
         node_list = response.xpath("//div[@id='J_goodsList']//li[@class='gl-item']")
+        print(node_list)
         # 遍历节点
         for node in node_list:
             # 获取商品sku
