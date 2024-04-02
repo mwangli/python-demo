@@ -15,7 +15,6 @@ class JobSpider(Spider):
 
     # 列表页面解析
     def parse(self, response):
-
         # 获取商品节点列表
         node_list = response.xpath("//div[@id='J_goodsList']//li[@class='gl-item']")
         # print(node_list)
@@ -26,6 +25,7 @@ class JobSpider(Spider):
             item['code'] = node.xpath('./@data-sku').extract_first()
             item['name'] = node.xpath('.//div[@class="p-img"]//a/@title').extract_first()
             item['price'] = node.xpath('.//div[@class="p-price"]//i/text()').extract_first()
+            # yield item
             # 详情页面处理
             detail_url = 'https://item.jd.com/' + item['code'] + '.html'
             yield scrapy.Request(detail_url, callback=self.parse_detail, meta={'item': item})
@@ -34,7 +34,6 @@ class JobSpider(Spider):
         next_url = temp[0] + temp[1] + str(int(temp[2]) + 2)
         print("下一页URL:", next_url)
         yield scrapy.Request(next_url)
-
 
     # 详情页面解析
     def parse_detail(self, response):
