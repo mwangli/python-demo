@@ -8,7 +8,7 @@ from jd_spider.items import JDItem
 
 # class JobSpider(RedisSpider):
 class JobSpider(Spider):
-    name = 'spider'
+    name = 'jd_spider'
 
     # redis_key = 'spider:start_url'
     start_urls = ['https://search.jd.com/Search?keyword=hf&enc=utf-8&wq=hf&pvid=86e17c0d019a46959f75162ab22e8241']

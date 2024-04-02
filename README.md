@@ -1,3 +1,3 @@
-#### Scrapy爬虫项目，用于爬取京东商品信息
-1. python版本>=2.7
-2. pip安装scrapy-redis, pymysql依赖
+#### Python学历项目集合，包含scrapy爬虫，深度学习LSTM等框架demo代码
+1. python版本>=3.12
+2. 使用pip进行依赖管理
