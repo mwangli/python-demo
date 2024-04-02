@@ -18,7 +18,7 @@ class JobSpider(Spider):
 
         # 获取商品节点列表
         node_list = response.xpath("//div[@id='J_goodsList']//li[@class='gl-item']")
-        print(node_list)
+        # print(node_list)
         # 遍历节点
         for node in node_list:
             # 获取商品sku

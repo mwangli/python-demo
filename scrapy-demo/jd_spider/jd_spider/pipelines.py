@@ -14,7 +14,7 @@ class MysqlPipeline(object):
     def process_item(self, item, spider):
         if item['name'] and item['code']:
             # sql语句
-            select_sql = """select * from item where code = %s"""
+            select_sql = """select * from goods_item where code = %s"""
             insert_sql = """insert into goods_item(code, category, shop, name, price, image, comments) VALUES (%s,%s,%s,%s,%s,%s,%s)"""
             # 执行插入数据到数据库操作
             rows = self.cursor.execute(select_sql, (item['code']))
