@@ -11,7 +11,8 @@ class JobSpider(Spider):
     name = 'jd_spider'
 
     # redis_key = 'spider:start_url'
-    start_urls = ['https://search.jd.com/Search?keyword=hf&enc=utf-8&wq=hf&pvid=86e17c0d019a46959f75162ab22e8241']
+    start_urls = [
+        'https://search.jd.com/Search?keyword=%E6%B1%89%E6%9C%8D&page=1']
 
     # 列表页面解析
     def parse(self, response):
@@ -29,9 +30,10 @@ class JobSpider(Spider):
             # 详情页面处理
             detail_url = 'https://item.jd.com/' + item['code'] + '.html'
             yield scrapy.Request(detail_url, callback=self.parse_detail, meta={'item': item})
-        # 获取下一页
-        temp = response.request.url.rpartition('=')
-        next_url = temp[0] + temp[1] + str(int(temp[2]) + 2)
+        # 获取下一页,页面深度+1即可
+        temp = response.request.url
+        depth = response.meta['depth']
+        next_url = temp + "&page=" + str(depth+1)
         print("下一页URL:", next_url)
         yield scrapy.Request(next_url)
 
