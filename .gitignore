@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+  jd_spider/__pycache__/
+        jd_spider/spiders/
