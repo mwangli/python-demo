@@ -29,7 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
-**__pycache__/**
+**/__pycache__/**
 
 # 取消已经跟踪的本地文件
 # git rm -r --cached .
